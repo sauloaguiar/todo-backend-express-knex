@@ -3,8 +3,15 @@ const express = require('express');
 const https = require('https');
 const fs = require('fs');
 const bodyParser = require('body-parser');
-
+const session = require('express-session');
 const app = express();
+
+app.use(session({
+  secret: process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: false,
+  cookie: { secure: false } // Set to true if using HTTPS
+}));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
